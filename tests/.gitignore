@@ -1,0 +1,135 @@
+### -------------------------------
+### Python-Specific Ignore Rules
+### -------------------------------
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+.installed.cfg
+MANIFEST
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Cython debug symbols
+cython_debug/
+
+
+### -------------------------------
+### Environment & Virtual Envs
+### -------------------------------
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+pythonenv*/
+
+# Environment variables
+.env
+.env.local
+.env.*
+!.env.example  # Keep example files
+
+
+### -------------------------------
+### Testing & Coverage
+### -------------------------------
+# Unit test / coverage reports
+.coverage
+.coverage.*
+htmlcov/
+.nox/
+.tox/
+.pytest_cache/
+.mypy_cache/
+*.cover
+*.py,cover
+
+
+### -------------------------------
+### IDE & Editor Configs
+### -------------------------------
+# VSCode
+.vscode/
+!.vscode/settings.json.example  # Keep example configs
+
+# PyCharm/IntelliJ
+.idea/
+*.iml
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+
+### -------------------------------
+### Database & Local Files
+### -------------------------------
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+
+# Logs
+*.log
+*.logs
+
+
+### -------------------------------
+### Dependency Management
+### -------------------------------
+# Poetry (uncomment if used)
+# poetry.lock
+
+# Pipenv (uncomment if used)
+# Pipfile.lock
+
+# PDM
+.pdm.toml
+.pdm-build/
+
+
+### -------------------------------
+### OS/Editor Temp Files
+### -------------------------------
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+
+### -------------------------------
+### Documentation
+### -------------------------------
+# Sphinx
+docs/_build/
+
+# MkDocs
+/site
