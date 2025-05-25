@@ -6,7 +6,7 @@ class Magazine(Base):
     __tablename__ = "magazines"
 
     id = Column(Integer, primary_key=True)
-    title = Column(String)
+    name = Column(String)
     category = Column(String)
 
     articles = relationship("Article", back_populates="magazine")
