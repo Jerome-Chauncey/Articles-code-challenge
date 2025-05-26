@@ -22,9 +22,4 @@ def add_author_with_articles(author_name, articles_data):
         print(f"Transaction failed: {e}")
         return False
     
-articles = [
-    {"title": "Finance Futures", "magazine_id": 1},
-    {"title": "Market Watch", "magazine_id": 2}
-]
 
-add_author_with_articles("Jerome Chauncey", articles)

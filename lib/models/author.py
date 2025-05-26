@@ -28,10 +28,9 @@ class Author(Base):
             raise ValueError("Author name cannot be empty")
         return value
     
-    def articles(self):
-        return self.articles
-    
-    def magazines(self):
+
+
+    def magazines_query(self):
         from models import Magazine, Article
         return(
             Magazine.query.join(Article).filter(Article.author_id == self.id).distinct().all()
@@ -39,22 +38,27 @@ class Author(Base):
 
         )
     
+    @classmethod
     def top_author(cls):
-        from models import Article
+        from lib.models.article import Article
         return (
-            db.session.query(cls, db.func.count(Article.id).label("article_count")).join(Article).group_by(cls.id).order_by(db.desc("article_count")).first()
+            db.session.query(cls, db.func.count(Article.id).label("article_count"))
+            .join(Article)
+            .group_by(cls.id)
+            .order_by(db.desc("article_count"))
+            .first()
         )
     
-    def articles(self):
+    def articles_sql(self):
         result = db.session.execute(
             """
-                SELECT * FROM articles WHERE author_id = :uthor_id
+                SELECT * FROM articles WHERE author_id = :author_id
             """,
             {"author_id": self.id}
         )
         return result.fetchall()
     
-    def magazines(self):
+    def magazines_sql(self):
         result = db.session.execute(
             """
                 SELECT DISTINCT magazines. * FROM magazine_id
@@ -79,7 +83,7 @@ class Author(Base):
                 JOIN articles ON magazines.id = articles.magazine_id
                 WHERE articles.author_id = :author_id
             """,
-            {"authpr_id": self.id}
+            {"author_id": self.id}
         )
         return [row[0] for row in result.fetchall()]
     

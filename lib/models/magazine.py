@@ -40,7 +40,7 @@ class Magazine(Base):
         )
     
 
-    def articles(self):
+    def articles_sql(self):
         result = db.session.execute(
             """
                 SELECT * FROM articles WHERE magazine_id = :magazine_id
