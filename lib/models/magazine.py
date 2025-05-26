@@ -39,5 +39,46 @@ class Magazine(Base):
             db.session.query(cls.name, db.func.count(Article.id).label('article_count')).outerjoin(Article).group_by(cls.id).all()
         )
     
+
+    def articles(self):
+        result = db.session.execute(
+            """
+                SELECT * FROM articles WHERE magazine_id = :magazine_id
+            """,
+            {"magazine_id: self.id"}
+        )
+        return result.fetchall()
     
+
+    def contributors(self):
+        result = db.session.execute(
+            """
+                SELECT DISTINCT authors.* FROM authors
+                JOIN articles ON authors.id = articles.author_id
+                WHERE articles.magazine_id = :magazine_id
+            """,
+            {"magazine_id": self.id}
+        )
+        return result.fetchall()
+    
+    def article_titles(self):
+        result = db.session.execute(
+            """
+            SELECT title FROM articles WHERE magazine_id = :magazine_id  
+            """,
+            {"magazine_id": self.id}
+        )
+        return [row[0] for row in result.fetchall()]
+    
+    def contributing_authors(self):
+        result = db.session.execute(
+            """
+            SELECT authors. * FROM authors
+            JOIN articles ON authors.id = articles.author_id 
+            WHERE articles.magazine_id = :magazine_id
+            GROUP BY authors.id
+            HAVING COUNT(articles.id) > 2 
+            """
+        )
+        return result.fetchall()
         

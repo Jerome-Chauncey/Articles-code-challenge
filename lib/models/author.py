@@ -45,6 +45,45 @@ class Author(Base):
             db.session.query(cls, db.func.count(Article.id).label("article_count")).join(Article).group_by(cls.id).order_by(db.desc("article_count")).first()
         )
     
+    def articles(self):
+        result = db.session.execute(
+            """
+                SELECT * FROM articles WHERE author_id = :uthor_id
+            """,
+            {"author_id": self.id}
+        )
+        return result.fetchall()
+    
+    def magazines(self):
+        result = db.session.execute(
+            """
+                SELECT DISTINCT magazines. * FROM magazine_id
+                JOIN articles ON magazines.id = articles.magazine_id
+                WHERE articles.author_id = :author_id
+            """,
+            {"author_id": self.id}
+        )
+        return result.fetchall()
+    
+    def add_article(self, magazine, title):
+        from models.article import Article
+        new_article = Article(title= title, author_id = self.id, magazine_id= magazine.id)
+        db.session.add(new_article)
+        db.session.commit()
+        return new_article
+    
+    def topic_areas(self):
+        result = db.session.execute(
+            """
+                SELECT DISTINCT magazines.category FROM magazines
+                JOIN articles ON magazines.id = articles.magazine_id
+                WHERE articles.author_id = :author_id
+            """,
+            {"authpr_id": self.id}
+        )
+        return [row[0] for row in result.fetchall()]
+    
+    
 
 
 
