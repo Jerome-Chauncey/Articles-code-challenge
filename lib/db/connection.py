@@ -1,6 +1,8 @@
-import sqlite3
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-def get_connection():
-    conn = sqlite3.connect("articles.db")
-    conn.row_factory = sqlite3.Row
-    return conn
+
+
+engine = create_engine('sqlite:///lib/db/app.db', echo= True)
+SessionLocal = sessionmaker(bind=engine)
+
